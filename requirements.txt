@@ -47,7 +47,7 @@ whichcraft==0.5.2
 wrapt==1.10.11
 git+https://github.com/oxwhirl/smac.git
 git+https://github.com/oxwhirl/sacred.git
-pysc2==2.0.2
+#pysc2==2.0.2
 
 
 
