@@ -1,0 +1,4 @@
+pysc2
+git+https://github.com/oxwhirl/smac.git
+pysc2==2.0.2
+git+https://github.com/oxwhirl/smac.git
