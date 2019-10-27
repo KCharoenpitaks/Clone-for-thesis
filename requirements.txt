@@ -27,7 +27,7 @@ protobuf==3.6.1
 py==1.6.0
 pygame==1.9.4
 pyparsing==2.2.2
-pysc2==3.0.0 #pysc2==2.0.2
+pysc2==3.0.0
 pytest==3.8.2
 python-dateutil==2.7.3
 PyYAML==3.13
