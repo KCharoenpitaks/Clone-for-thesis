@@ -246,7 +246,7 @@ class ParallelRunner:
                         self.RND_net_optimizer2.step()
                     elif self.Mode == "4": #RPN3
                         #print("HIIIIIII")
-                        loss_RPN3 = self.RPN_net3.diff(data["obs"],actions_chosen["actions"][0][0],reward_temp)#reward_temp
+                        loss_RPN3 = self.RPN_net3.diff(data["obs"],actions_chosen["actions"][0][0],reward_temp).sum()#reward_temp
                         self.RPN_net_optimizer3.zero_grad()
                         loss_RPN3.backward()          
                         self.RPN_net_optimizer3.step()
