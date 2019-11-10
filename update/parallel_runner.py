@@ -235,18 +235,18 @@ class ParallelRunner:
                         
                     #print("idx=",idx,"state =",data["obs"],) #find state
                     if self.Mode == "2": #RND1
-                        loss_RND1 = reward_temp#self.MseLoss1(RND_Net_values.detach(), RND_predictor_values)
+                        loss_RND1 = self.RND_net.RND_diff(data["obs"]).sum()#self.MseLoss1(RND_Net_values.detach(), RND_predictor_values)
                         self.RND_net_optimizer.zero_grad()
                         loss_RND1.backward()          
                         self.RND_net_optimizer.step()
                     elif self.Mode == "3": #RND2
-                        loss_RND2 = reward_temp
+                        loss_RND2 = self.RND_net2.RND_diff(data["obs"],actions_chosen["actions"][0][0]).sum()#reward_temp
                         self.RND_net_optimizer2.zero_grad()
                         loss_RND2.backward()          
                         self.RND_net_optimizer2.step()
                     elif self.Mode == "4": #RPN3
                         #print("HIIIIIII")
-                        loss_RPN3 = reward_temp
+                        loss_RPN3 = self.RPN_net3.diff(data["obs"],actions_chosen["actions"][0][0],reward_temp)#reward_temp
                         self.RPN_net_optimizer3.zero_grad()
                         loss_RPN3.backward()          
                         self.RPN_net_optimizer3.step()
@@ -461,7 +461,7 @@ class RNDforPPO(nn.Module):
     
     def RND_diff(self,state):
         #print(state)
-        #state = np.array(state)
+        state = np.array(state)
         predictor = self.predictor_RND(state)
         forward = self.forward_RND(state)
         diff = self.MseLoss(forward,predictor.detach())
