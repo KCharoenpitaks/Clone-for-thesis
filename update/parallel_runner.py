@@ -6,7 +6,7 @@ import numpy as np
 import torch as th
 import torch.nn as nn
 
-
+device = th.device("cpu")
 # Based (very) heavily on SubprocVecEnv from OpenAI Baselines
 # https://github.com/openai/baselines/blob/master/baselines/common/vec_env/subproc_vec_env.py
 class ParallelRunner:
@@ -117,7 +117,7 @@ class ParallelRunner:
             # Pass the entire batch of experiences up till now to the agents
             # Receive the actions for each agent at this timestep in a batch for each un-terminated env
             actions = self.mac.select_actions(self.batch, t_ep=self.t, t_env=self.t_env, bs=envs_not_terminated, test_mode=test_mode)
-            cpu_actions = actions.to("cpu").numpy()
+            cpu_actions = actions.to("cpu").numpy()#.to(device)
 
             # Update the actions taken
             actions_chosen = {
@@ -186,6 +186,7 @@ class ParallelRunner:
                             #print("i=",i,"state =",data["obs"][i],)
                             #print("i=",i,"reward =",data["reward"],)
                             temp_rew = get_intrinsic_reward_RND1(data["obs"][i],self.RND_net,5)
+                            temp_rew =temp_rew.data.cpu().numpy()
                             reward_temp += temp_rew
                             #print("i=",i,"temp_reward",temp_rew)  
                             #print("i=",i,"out =",self.RND_net.predictor_RND(data["obs"][i]))
@@ -203,6 +204,7 @@ class ParallelRunner:
                             #print("i=",i,"data_obs",data["obs"][i])
                             #print("i=",i,"avail_actions",data["avail_actions"][i])
                             temp_rew = get_intrinsic_reward_RND2(data["obs"][i],actions_chosen["actions"][0][0][i],self.RND_net2,5)
+                            temp_rew =temp_rew.data.cpu().numpy()
                             reward_temp += temp_rew
                             #print("i=",i,"temp_reward",temp_rew)  
 
@@ -220,6 +222,7 @@ class ParallelRunner:
                             #print("i=",i,"data_obs",data["obs"][i])
                             #print("i=",i,"avail_actions",data["avail_actions"][i])
                             temp_rew = get_intrinsic_reward_RPN3(data["obs"][i],actions_chosen["actions"][0][0][i],self.RPN_net3,data["reward"],5)
+                            temp_rew =temp_rew.data.cpu().numpy()
                             reward_temp += temp_rew
                             #print("i=",i,"temp_reward",temp_rew)  
 
@@ -228,14 +231,16 @@ class ParallelRunner:
                         
                     else:
                         pass
-            
+                    #data["reward"] = data["reward"].data.numpy()
+                    #print("datarewards",data["reward"])
                     episode_returns[idx] += data["reward"]
+                    #episode_returns[idx] = episode_returns[idx].data.numpy()
                     episode_lengths[idx] += 1
                     ##################################################  
                         
                     #print("idx=",idx,"state =",data["obs"],) #find state
                     if self.Mode == "2": #RND1
-                        loss_RND1 = self.RND_net.RND_diff(data["obs"]).sum()#self.MseLoss1(RND_Net_values.detach(), RND_predictor_values)
+                        loss_RND1 = self.RND_net.RND_diff(np.array(data["obs"])).sum()#self.MseLoss1(RND_Net_values.detach(), RND_predictor_values)
                         self.RND_net_optimizer.zero_grad()
                         loss_RND1.backward()          
                         self.RND_net_optimizer.step()
@@ -297,9 +302,13 @@ class ParallelRunner:
         cur_stats.update({k: sum(d.get(k, 0) for d in infos) for k in set.union(*[set(d) for d in infos])})
         cur_stats["n_episodes"] = self.batch_size + cur_stats.get("n_episodes", 0)
         cur_stats["ep_length"] = sum(episode_lengths) + cur_stats.get("ep_length", 0)
-
+        #print("cur_returns=",cur_returns)
+        #cur_returns = cur_returns.data.numpy()
+        #episode_returns.data.numpy()
+        #print("episode_returns=",episode_returns)
+        
         cur_returns.extend(episode_returns)
-
+        #print("cur_returns=",cur_returns)
         n_test_runs = max(1, self.args.test_nepisode // self.batch_size) * self.batch_size
         if test_mode and (len(self.test_returns) == n_test_runs):
             self._log(cur_returns, cur_stats, log_prefix)
@@ -312,6 +321,7 @@ class ParallelRunner:
         return self.batch
 
     def _log(self, returns, stats, prefix):
+        print(returns)
         self.logger.log_stat(prefix + "return_mean", np.mean(returns), self.t_env)
         self.logger.log_stat(prefix + "return_std", np.std(returns), self.t_env)
         returns.clear()
@@ -447,13 +457,13 @@ class RNDforPPO(nn.Module):
                 )
     
     def forward_RND(self, state):
-        state = th.from_numpy(state).float()
+        state = th.from_numpy(np.array(state)).float()
         state = state
         value = self.RND_NN_layer(state)
         return th.squeeze(value)
     
     def predictor_RND(self, state):
-        state = th.from_numpy(state).float()
+        state = th.from_numpy(np.array(state)).float()
         #state= state
         #print(state)
         value = self.Predictor_NN_layer(state)
@@ -461,11 +471,12 @@ class RNDforPPO(nn.Module):
     
     def RND_diff(self,state):
         #print(state)
-        state = np.array(state)
+        #state = np.array(state)
         predictor = self.predictor_RND(state)
         forward = self.forward_RND(state)
         diff = self.MseLoss(forward,predictor.detach())
-        return diff
+        diff.data.numpy()
+        return diff#.data.numpy()
     
 class RNDforPPO2(nn.Module):
     def __init__(self, state_dim,action_dim , n_latent_var):
@@ -492,7 +503,7 @@ class RNDforPPO2(nn.Module):
                 
     
     def forward_RND(self, state):
-        state = th.from_numpy(state).float()
+        state = th.from_numpy(np.array(state)).float()
         value = self.RND_NN_layer(state)
         return th.squeeze(value)
     
@@ -506,7 +517,7 @@ class RNDforPPO2(nn.Module):
         action = th.squeeze(action,0)
 
         
-        state = th.from_numpy(state).float()
+        state = th.from_numpy(np.array(state)).float()
         state= state
         #print("state=",state.shape)
         #print("action=",action.shape)
@@ -516,11 +527,13 @@ class RNDforPPO2(nn.Module):
         return th.squeeze(value)
     
     def RND_diff(self,state,action):
+        action = action.cpu()
         action = np.array(action)
         predictor = self.predictor_RND(state,action)
         forward = self.forward_RND(state)
         diff = self.MseLoss(forward,predictor.detach())
-        return diff
+        diff.data.numpy()
+        return diff#.data.numpy()
 
 
 def to_categorical(y, num_classes):
@@ -550,16 +563,18 @@ class Reward_prediction(nn.Module):
         action = th.squeeze(action,0)
 
         
-        state = th.from_numpy(state).float()
+        state = th.from_numpy(np.array(state)).float()
         state= state
         state_action = th.cat((state, action), -1)
         value = self.Predictor_NN_layer(state_action)
         return th.squeeze(value)
     
     def diff(self, state, action,reward):
+        action = action.cpu()
         action = np.array(action)
         predictor = self.predictor_RND(state,action)
         reward = th.tensor(reward)
         diff = self.MseLoss(reward,predictor)
+
         #print(diff)
-        return diff
+        return diff#.data.numpy()
