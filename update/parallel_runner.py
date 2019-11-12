@@ -16,7 +16,8 @@ class ParallelRunner:
         self.args = args
         self.logger = logger
         self.batch_size = self.args.batch_size_run
-        self.Mode = self.args.running_mode
+        self.Mode = str(self.args.running_mode)
+        #print("self.Mode=",self.Mode)
 
         # Make subprocesses for the envs
         self.parent_conns, self.worker_conns = zip(*[Pipe() for _ in range(self.batch_size)])
@@ -158,6 +159,7 @@ class ParallelRunner:
                 #print("parent_conn=", parent_conn)
                 if not terminated[idx]:
                     data = parent_conn.recv()
+
                     #print("idx=",idx,"data=",data)
                     # Remaining data for this current timestep
                     #print("------",data["reward"])
@@ -166,6 +168,7 @@ class ParallelRunner:
                     
                     if self.Mode == "0": # Intrinsic_reward_noise
                         data["reward"] = data["reward"] + get_intrinsic_reward_noise(data["reward"],self.t_env,50,0.99)
+                        print("00000000000000000000")
                     
                     elif self.Mode == "1": #Count-based
                         reward_temp = 0
@@ -179,7 +182,7 @@ class ParallelRunner:
                         #print(data["reward"],"======")
                         data["reward"] = data["reward"] + reward_temp/len(data["obs"])
                         #print(data["reward"])
-                    
+                        print("1111111111111111")
                     elif self.Mode =="2": # RND1
                         reward_temp = 0
                         for i in range(len(data["obs"])):
@@ -188,10 +191,11 @@ class ParallelRunner:
                             temp_rew = get_intrinsic_reward_RND1(data["obs"][i],self.RND_net,5)
                             temp_rew =temp_rew.data.cpu().numpy()
                             reward_temp += temp_rew
+                            #print("JJJJJJJJJJJJJJJJJJJJJJJJ")
                             #print("i=",i,"temp_reward",temp_rew)  
                             #print("i=",i,"out =",self.RND_net.predictor_RND(data["obs"][i]))
                         data["reward"] = data["reward"] + reward_temp/len(data["obs"]) 
-                        
+                        print("22222222222222")
                     elif self.Mode =="3": # RND2
                         reward_temp = 0
                         for i in range(len(data["obs"])):
@@ -210,6 +214,7 @@ class ParallelRunner:
 
                             #print("i=",i,"out =",self.RND_net.predictor_RND(data["obs"][i]))
                         data["reward"] = data["reward"] + reward_temp/len(data["obs"]) 
+                        print("3333333333333333")
                     elif self.Mode =="4": # RPN
                         reward_temp = 0
                         for i in range(len(data["obs"])):
@@ -228,8 +233,14 @@ class ParallelRunner:
 
                             #print("i=",i,"out =",self.RND_net.predictor_RND(data["obs"][i]))
                         data["reward"] = data["reward"] + reward_temp/len(data["obs"]) 
+                        print("4444444444444444")
+                    elif self.Mode=="normal"
+                        print("Normal")
+
+                        pass
                         
                     else:
+                        print("Pass")
                         pass
                     #data["reward"] = data["reward"].data.numpy()
                     #print("datarewards",data["reward"])
