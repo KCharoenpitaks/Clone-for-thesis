@@ -240,7 +240,7 @@ class ParallelRunner:
                         data["reward"] = data["reward"] + reward_temp/len(data["obs"]) 
                         if self.t%50 == 0:
                             print("4444444444444444")
-                    elif self.Mode=="normal"
+                    elif self.Mode=="normal":
                         if self.t%50 == 0:
                             print("Normal")
 
