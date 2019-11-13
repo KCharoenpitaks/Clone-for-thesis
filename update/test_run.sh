@@ -6,41 +6,71 @@
 
 
 python3 src/main.py --config=coma_smac with running_mode=4 --env-config=sc2
-pkill -t pts/1
-pkill -t pts/2
-pkill -t pts/3
-pkill -t pts/4
-pkill -t pts/5
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
 python3 src/main.py --config=coma_smac with running_mode=3 --env-config=sc2
-pkill -t pts/1
-pkill -t pts/2
-pkill -t pts/3
-pkill -t pts/4
-pkill -t pts/5
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
 python3 src/main.py --config=coma_smac with running_mode=2 --env-config=sc2
-pkill -t pts/1
-pkill -t pts/2
-pkill -t pts/3
-pkill -t pts/4
-pkill -t pts/5
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
 python3 src/main.py --config=coma_smac with running_mode=1 --env-config=sc2
-pkill -t pts/1
-pkill -t pts/2
-pkill -t pts/3
-pkill -t pts/4
-pkill -t pts/5
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
 python3 src/main.py --config=coma_smac with running_mode=0 --env-config=sc2
-pkill -t pts/1
-pkill -t pts/2
-pkill -t pts/3
-pkill -t pts/4
-pkill -t pts/5
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
 python3 src/main.py --config=coma_smac with running_mode=normal --env-config=sc2
-pkill -t pts/1
-pkill -t pts/2
-pkill -t pts/3
-pkill -t pts/4
-pkill -t pts/5
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
+pkill -f /home/korawatcharoenpitaks/pymarl-deploy/MARL/3rdparty/StarCraftII/Versions/Base69232/SC2_x64
 
 
 
