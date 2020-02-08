@@ -215,7 +215,7 @@ class ParallelRunner:
                             self.temp_input3 = np.concatenate((temp_input,temp_input2))
                             #print("temp_input3=",self.temp_input3)
                             
-                            temp_rew = get_intrinsic_reward_RND1(self.temp_input3,self.RND_net,5)
+                            temp_rew = get_intrinsic_reward_RND1(self.temp_input3,self.RND_net,50)
                             temp_rew =temp_rew.data.cpu().numpy()
                             reward_temp += temp_rew
                             """
