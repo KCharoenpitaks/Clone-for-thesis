@@ -49,7 +49,7 @@ class ParallelRunner:
         ### Use this one only
         self.RND_shape = self.env_info["obs_shape"] + self.env_info["n_agents"]
         #print("self.RND_shape",self.RND_shape)
-        self.RND_net = RNDforPPO(self.RND_shape,self.env_info["n_actions"],64)
+        self.RND_net = RNDforPPO(self.RND_shape,self.env_info["n_actions"],1)
         self.RND_net_optimizer = th.optim.Adam(self.RND_net.parameters(),
                                               lr=self.lr, betas=self.betas)
         self.MseLoss1 = nn.MSELoss()
