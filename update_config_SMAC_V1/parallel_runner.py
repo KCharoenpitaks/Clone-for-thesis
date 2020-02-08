@@ -49,7 +49,7 @@ class ParallelRunner:
         ### Use this one only
         self.RND_shape = self.env_info["obs_shape"] + self.env_info["n_agents"]
         #print("self.RND_shape",self.RND_shape)
-        self.RND_net = RNDforPPO(self.RND_shape,self.env_info["n_actions"],1)
+        self.RND_net = RNDforPPO(self.RND_shape,self.env_info["n_actions"],64)
         self.RND_net_optimizer = th.optim.Adam(self.RND_net.parameters(),
                                               lr=self.lr, betas=self.betas)
         self.MseLoss1 = nn.MSELoss()
@@ -508,14 +508,14 @@ class RNDforPPO(nn.Module):
                 nn.Tanh(),
                 nn.Linear(n_latent_var, n_latent_var),
                 nn.Tanh(),
-                nn.Linear(n_latent_var, 32),
+                nn.Linear(n_latent_var, 1),
                 )
         self.Predictor_NN_layer = nn.Sequential(
                 nn.Linear(state_dim, n_latent_var),
                 nn.Tanh(),
                 nn.Linear(n_latent_var, n_latent_var),
                 nn.Tanh(),
-                nn.Linear(n_latent_var, 32),
+                nn.Linear(n_latent_var, 1),
                 )
     
     def forward_RND(self, state):
@@ -553,14 +553,14 @@ class RNDforPPO2(nn.Module):
                 nn.Tanh(),
                 nn.Linear(n_latent_var, n_latent_var),
                 nn.Tanh(),
-                nn.Linear(n_latent_var, 32),
+                nn.Linear(n_latent_var, 1),
                 )
         self.Predictor_NN_layer = nn.Sequential(
                 nn.Linear(int(state_dim)+int(action_dim), n_latent_var),
                 nn.Tanh(),
                 nn.Linear(n_latent_var, n_latent_var),
                 nn.Tanh(),
-                nn.Linear(n_latent_var, 32),
+                nn.Linear(n_latent_var, 1),
                 )
                 
     
