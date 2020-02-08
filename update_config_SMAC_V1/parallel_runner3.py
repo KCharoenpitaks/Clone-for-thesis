@@ -232,6 +232,42 @@ class ParallelRunner:
                         #print("rewards=",data["reward"])
                         if self.t%50 == 0:
                             print("22222222222222")
+                           
+                    if self.Mode =="5": # no extrinsic
+                        reward_temp = 0
+                        #print("range of data obs=",range(len(data["obs"])))
+                        #print("data obs=", data["obs"])
+                        temp_input = []
+                        temp_input2 = []
+                        self.temp_input3 = []
+                        for i in range(len(data["obs"])):
+                            
+                            temp_input = data["obs"][i]
+                            temp_input2 = np.eye(self.n_agents)[i]
+                            #print("temp_input=",temp_input)
+                            #temp_input.append(th.eye(self.n_agents))
+                            #print("eye = ",np.eye(self.n_agents))
+
+                            self.temp_input3 = np.concatenate((temp_input,temp_input2))
+                            #print("temp_input3=",self.temp_input3)
+                            
+                            temp_rew = get_intrinsic_reward_RND1(self.temp_input3,self.RND_net,50)
+                            temp_rew =temp_rew.data.cpu().numpy()
+                            reward_temp += temp_rew
+                            """
+                            #print("i=",i,"state =",data["obs"][i],)
+                            #print("i=",i,"reward =",data["reward"],)
+                            temp_rew = get_intrinsic_reward_RND1(data["obs"][i],self.RND_net,5)
+                            temp_rew =temp_rew.data.cpu().numpy()
+                            reward_temp += temp_rew
+                            #print("JJJJJJJJJJJJJJJJJJJJJJJJ")
+                            #print("i=",i,"temp_reward",temp_rew)  
+                            #print("i=",i,"out =",self.RND_net.predictor_RND(data["obs"][i]))
+                            """
+                        data["reward"] = reward_temp/len(data["obs"]) 
+                        #print("rewards=",data["reward"])
+                        if self.t%50 == 0:
+                            print("5555555555555")
                             """
                     elif self.Mode =="3": # RND2
                         reward_temp = 0
