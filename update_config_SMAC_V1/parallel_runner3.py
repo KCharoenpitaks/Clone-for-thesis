@@ -233,7 +233,7 @@ class ParallelRunner:
                         if self.t%50 == 0:
                             print("22222222222222")
                            
-                    if self.Mode =="5": # no extrinsic
+                    elif self.Mode =="5": # no extrinsic
                         reward_temp = 0
                         #print("range of data obs=",range(len(data["obs"])))
                         #print("data obs=", data["obs"])
@@ -330,6 +330,11 @@ class ParallelRunner:
                         
                     #print("idx=",idx,"state =",data["obs"],) #find state
                     if self.Mode == "2": #RND1
+                        loss_RND1 = self.RND_net.RND_diff(self.temp_input3).sum()#self.MseLoss1(RND_Net_values.detach(), RND_predictor_values)
+                        self.RND_net_optimizer.zero_grad()
+                        loss_RND1.backward()          
+                        self.RND_net_optimizer.step()
+                    elif self.Mode == "5": #RND1
                         loss_RND1 = self.RND_net.RND_diff(self.temp_input3).sum()#self.MseLoss1(RND_Net_values.detach(), RND_predictor_values)
                         self.RND_net_optimizer.zero_grad()
                         loss_RND1.backward()          
