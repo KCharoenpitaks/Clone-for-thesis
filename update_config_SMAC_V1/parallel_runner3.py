@@ -204,6 +204,8 @@ class ParallelRunner:
                         temp_input = []
                         temp_input2 = []
                         self.temp_input3 = []
+                        if self.t%500 == 0:
+                            print("Extrinsic Reward =",data["reward"])
                         for i in range(len(data["obs"])):
                             
                             temp_input = data["obs"][i]
@@ -230,8 +232,10 @@ class ParallelRunner:
                             """
                         data["reward"] = data["reward"] + reward_temp/len(data["obs"]) 
                         #print("rewards=",data["reward"])
-                        if self.t%50 == 0:
-                            print("22222222222222")
+                        if self.t%500 == 0:
+                            print("222222222222")
+                            print("Intrinsic Reward =",reward_temp/len(data["obs"]))
+                            print("Total Reward =", data["reward"])
                            
                     elif self.Mode =="5": # no extrinsic
                         reward_temp = 0
@@ -240,6 +244,8 @@ class ParallelRunner:
                         temp_input = []
                         temp_input2 = []
                         self.temp_input3 = []
+                        if self.t%500 == 0:
+                            print("Extrinsic Reward =",data["reward"])
                         for i in range(len(data["obs"])):
                             
                             temp_input = data["obs"][i]
@@ -266,8 +272,10 @@ class ParallelRunner:
                             """
                         data["reward"] = reward_temp/len(data["obs"]) 
                         #print("rewards=",data["reward"])
-                        if self.t%50 == 0:
+                        if self.t%500 == 0:
                             print("5555555555555")
+                            print("Intrinsic Reward =",reward_temp/len(data["obs"])  )
+                            print("Total Reward =", data["reward"])
                             """
                     elif self.Mode =="3": # RND2
                         reward_temp = 0
@@ -311,13 +319,14 @@ class ParallelRunner:
                             print("4444444444444444")
                             """
                     elif self.Mode=="normal":
-                        if self.t%50 == 0:
+                        if self.t%500 == 0:
                             print("Normal")
+                            print("Total Reward =", data["reward"])
 
                         pass
                         
                     else:
-                        if self.t%50 == 0:
+                        if self.t%500 == 0:
                             print("Pass")
                         pass
                     #data["reward"] = data["reward"].data.numpy()
