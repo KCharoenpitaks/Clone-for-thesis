@@ -250,14 +250,18 @@ class ParallelRunner:
                             
                         self.temp_input_all = np.array(data["obs"]).reshape(-1)
                         temp_rew_all = get_intrinsic_reward_RND1(self.temp_input_all,self.RND_net_all,5)
-                        temp_list.append(temp_rew_all.data.numpy())
+                        #print("temp_list",temp_list.shape)
+                        temp_list.append(temp_rew_all.data.numpy()/3)
+                        #print("temp_list2",temp_list.shape)
                         #data["reward"] = data["reward"] + reward_temp/len(data["obs"]) 
                         data["intrinsic_reward"] = np.array(temp_list).reshape(1,-1)
+                        
                         #print("SSSSSSSSSSSSSSSSSSSSSSSSSS", data["intrinsic_reward"].shape)
                         self.rms_int.update(data["intrinsic_reward"])
                         #print("self.rms_int.var",self.rms_int.var)
 
                         data["intrinsic_reward"] = data["intrinsic_reward"]/np.sqrt(self.rms_int.var)
+                        print("SSSSSSSSSSSSSSSSSSSSSSSSSS 222222", data["intrinsic_reward"].shape)
                         
                         #r1_int_list/np.sqrt(reward_rms1.var)
                         #print("rewards=",data["reward"])
@@ -349,8 +353,12 @@ class ParallelRunner:
                     
                     ###############################################
                     
+                    #print("(data[reward],)", (data["reward"],))
+                    print("(data[intrinsic_reward],)", data["intrinsic_reward"].shape)
+                    
+                    
                     post_transition_data["reward"].append((data["reward"],))
-                    post_transition_data["intrinsic_reward"].append((data["intrinsic_reward"],))
+                    post_transition_data["intrinsic_reward"].append(data["intrinsic_reward"],)
                     #print("HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
                     
                     if not test_mode:
