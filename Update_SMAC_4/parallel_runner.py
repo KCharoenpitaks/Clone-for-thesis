@@ -256,11 +256,8 @@ class ParallelRunner:
                         #print("SSSSSSSSSSSSSSSSSSSSSSSSSS", data["intrinsic_reward"].shape)
                         self.rms_int.update(data["intrinsic_reward"])
                         #print("self.rms_int.var",self.rms_int.var)
-                        if np.sqrt(self.rms_int.var) == 0:
-                            print("Pass!! rms_int.var = 0 ")
-                            pass
-                        else:
-                            data["intrinsic_reward"] = data["intrinsic_reward"]/np.sqrt(self.rms_int.var)
+
+                        data["intrinsic_reward"] = data["intrinsic_reward"]/np.sqrt(self.rms_int.var)
                         
                         #r1_int_list/np.sqrt(reward_rms1.var)
                         #print("rewards=",data["reward"])
@@ -343,7 +340,7 @@ class ParallelRunner:
                         self.RPN_net_optimizer3.zero_grad()
                         loss_RPN3.backward()          
                         self.RPN_net_optimizer3.step()
-                    elif self.Mode == "5": #
+                    elif self.Mode == "5": #RPN3
                         #print("HIIIIIII")
                         loss_RND_all = self.RND_net_all.RND_diff(self.temp_input_all).sum()#self.MseLoss1(RND_Net_values.detach(), RND_predictor_values)
                         self.RND_net_optimizer_all.zero_grad()
