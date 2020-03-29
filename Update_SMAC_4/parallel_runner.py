@@ -219,7 +219,7 @@ class ParallelRunner:
                         temp_input2 = []
                         self.temp_input3 = []
                         temp_list = []
-                        temp_input_all = []
+                        self.temp_input_all = []
                         for i in range(len(data["obs"])):
                             
                             temp_input = data["obs"][i]
@@ -248,15 +248,19 @@ class ParallelRunner:
                             #print("i=",i,"out =",self.RND_net.predictor_RND(data["obs"][i]))
                             """
                             
-                        temp_input_all = np.array(data["obs"]).reshape(-1)
-                        temp_rew_all = get_intrinsic_reward_RND1(temp_input_all,self.RND_net_all,5)
+                        self.temp_input_all = np.array(data["obs"]).reshape(-1)
+                        temp_rew_all = get_intrinsic_reward_RND1(self.temp_input_all,self.RND_net_all,5)
                         temp_list.append(temp_rew_all.data.numpy())
                         #data["reward"] = data["reward"] + reward_temp/len(data["obs"]) 
                         data["intrinsic_reward"] = np.array(temp_list).reshape(1,-1)
                         #print("SSSSSSSSSSSSSSSSSSSSSSSSSS", data["intrinsic_reward"].shape)
                         self.rms_int.update(data["intrinsic_reward"])
                         #print("self.rms_int.var",self.rms_int.var)
-                        data["intrinsic_reward"] = data["intrinsic_reward"]/np.sqrt(self.rms_int.var)
+                        if np.sqrt(self.rms_int.var) == 0:
+                            print("Pass!! rms_int.var = 0 ")
+                            pass
+                        else:
+                            data["intrinsic_reward"] = data["intrinsic_reward"]/np.sqrt(self.rms_int.var)
                         
                         #r1_int_list/np.sqrt(reward_rms1.var)
                         #print("rewards=",data["reward"])
@@ -339,6 +343,12 @@ class ParallelRunner:
                         self.RPN_net_optimizer3.zero_grad()
                         loss_RPN3.backward()          
                         self.RPN_net_optimizer3.step()
+                    elif self.Mode == "5": #
+                        #print("HIIIIIII")
+                        loss_RND_all = self.RND_net_all.RND_diff(self.temp_input_all).sum()#self.MseLoss1(RND_Net_values.detach(), RND_predictor_values)
+                        self.RND_net_optimizer_all.zero_grad()
+                        loss_RND_all.backward()          
+                        self.RND_net_optimizer_all.step()
                     
                     ###############################################
                     
