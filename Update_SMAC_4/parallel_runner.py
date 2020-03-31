@@ -266,7 +266,11 @@ class ParallelRunner:
                         #r1_int_list/np.sqrt(reward_rms1.var)
                         #print("rewards=",data["reward"])
                         if self.t%200 == 0:
-                            print("22222222222222")
+                            if self.Mode =="2":
+                                print("22222222222222")
+                            elif self.Mode =="5":
+                                print("55555555555555")
+                                
                             """
                     elif self.Mode =="3": # RND2
                         reward_temp = 0
