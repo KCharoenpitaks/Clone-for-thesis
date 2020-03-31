@@ -112,7 +112,7 @@ class COMALearner:
         ##################################################### Combined Intrinsic Reward
         #print("batchzzzz = ",batch["intrinsic_reward"][:, :-1, 3])
         elif self.Mode =="5":
-            int_adv = th.cat((batch["intrinsic_reward"][:, :-1, -1:].reshape(-1),batch["intrinsic_reward"][:, :-1, 3].reshape(-1),batch["intrinsic_reward"][:, :-1, 3].reshape(-1)),0)
+            int_adv = th.cat((batch["intrinsic_reward"][:, :-1, 3].reshape(-1),batch["intrinsic_reward"][:, :-1, 3].reshape(-1),batch["intrinsic_reward"][:, :-1, 3].reshape(-1)),0)
             clip_ratio = 2
             for t in range(len(advantages)):
                 int_adv_clipped = th.clamp(int_adv[t],min = clip_ratio*-advantages[t], max =clip_ratio*advantages[t])
