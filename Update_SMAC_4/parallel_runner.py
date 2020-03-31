@@ -261,7 +261,7 @@ class ParallelRunner:
                         #print("self.rms_int.var",self.rms_int.var)
 
                         data["intrinsic_reward"] = data["intrinsic_reward"]/np.sqrt(self.rms_int.var)
-                        print("SSSSSSSSSSSSSSSSSSSSSSSSSS 222222", data["intrinsic_reward"].shape)
+                        #print("SSSSSSSSSSSSSSSSSSSSSSSSSS 222222", data["intrinsic_reward"].shape)
                         
                         #r1_int_list/np.sqrt(reward_rms1.var)
                         #print("rewards=",data["reward"])
@@ -310,7 +310,9 @@ class ParallelRunner:
                             print("4444444444444444")
                             """
                     elif self.Mode=="normal":
+                        
                         if self.t%50 == 0:
+                            
                             print("Normal")
 
                         pass
@@ -354,11 +356,15 @@ class ParallelRunner:
                     ###############################################
                     
                     #print("(data[reward],)", (data["reward"],))
-                    print("(data[intrinsic_reward],)", data["intrinsic_reward"].shape)
+                    #print("(data[intrinsic_reward],)", data["intrinsic_reward"].shape)
                     
                     
                     post_transition_data["reward"].append((data["reward"],))
-                    post_transition_data["intrinsic_reward"].append(data["intrinsic_reward"],)
+                    if (self.Mode =="2" or self.Mode =="5"):
+                        post_transition_data["intrinsic_reward"].append(data["intrinsic_reward"],)
+                    else:
+                        pass
+                    
                     #print("HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
                     
                     if not test_mode:
