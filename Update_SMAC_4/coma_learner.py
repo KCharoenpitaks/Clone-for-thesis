@@ -94,7 +94,8 @@ class COMALearner:
         pi_taken = th.gather(pi, dim=1, index=actions.reshape(-1, 1)).squeeze(1)
         pi_taken[mask == 0] = 1.0
         log_pi_taken = th.log(pi_taken)
-
+        
+        advantages = th.FloatTensor([0.0])
         #torch.clamp(a, min=-0.5, max=0.5)
         advantages = (q_taken - baseline).detach()
         #print("advantages",advantages)
