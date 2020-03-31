@@ -260,7 +260,7 @@ class ParallelRunner:
                         self.rms_int.update(data["intrinsic_reward"])
                         #print("self.rms_int.var",self.rms_int.var)
 
-                        data["intrinsic_reward"] = data["intrinsic_reward"]/np.sqrt(self.rms_int.var)
+                        data["intrinsic_reward"] = data["intrinsic_reward"]/(np.sqrt(self.rms_int.var)+0.0000001)
                         #print("SSSSSSSSSSSSSSSSSSSSSSSSSS 222222", data["intrinsic_reward"].shape)
                         
                         #r1_int_list/np.sqrt(reward_rms1.var)
