@@ -83,10 +83,10 @@ def run_sequential(args, logger):
     args.n_agents = env_info["n_agents"]
     args.n_actions = env_info["n_actions"]
     args.state_shape = env_info["state_shape"]
-    Mode = str(self.args.running_mode)
+    Mode = str(args.running_mode)
 
     # Default/Base scheme
-    if (self.Mode =="2" or self.Mode =="5"):
+    if (Mode =="2" or Mode =="5"):
         scheme = {
             "state": {"vshape": env_info["state_shape"]},
             "obs": {"vshape": env_info["obs_shape"], "group": "agents"},
