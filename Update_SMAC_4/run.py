@@ -83,17 +83,28 @@ def run_sequential(args, logger):
     args.n_agents = env_info["n_agents"]
     args.n_actions = env_info["n_actions"]
     args.state_shape = env_info["state_shape"]
+    Mode = str(self.args.running_mode)
 
     # Default/Base scheme
-    scheme = {
-        "state": {"vshape": env_info["state_shape"]},
-        "obs": {"vshape": env_info["obs_shape"], "group": "agents"},
-        "actions": {"vshape": (1,), "group": "agents", "dtype": th.long},
-        "avail_actions": {"vshape": (env_info["n_actions"],), "group": "agents", "dtype": th.int},
-        "reward": {"vshape": (1,)},
-        "terminated": {"vshape": (1,), "dtype": th.uint8},
-        "intrinsic_reward": {"vshape": args.n_agents+1},
-    }
+    if (self.Mode =="2" or self.Mode =="5"):
+        scheme = {
+            "state": {"vshape": env_info["state_shape"]},
+            "obs": {"vshape": env_info["obs_shape"], "group": "agents"},
+            "actions": {"vshape": (1,), "group": "agents", "dtype": th.long},
+            "avail_actions": {"vshape": (env_info["n_actions"],), "group": "agents", "dtype": th.int},
+            "reward": {"vshape": (1,)},
+            "terminated": {"vshape": (1,), "dtype": th.uint8},
+            "intrinsic_reward": {"vshape": args.n_agents+1},
+        }
+    else:
+        scheme = {
+            "state": {"vshape": env_info["state_shape"]},
+            "obs": {"vshape": env_info["obs_shape"], "group": "agents"},
+            "actions": {"vshape": (1,), "group": "agents", "dtype": th.long},
+            "avail_actions": {"vshape": (env_info["n_actions"],), "group": "agents", "dtype": th.int},
+            "reward": {"vshape": (1,)},
+            "terminated": {"vshape": (1,), "dtype": th.uint8},
+        }
     groups = {
         "agents": args.n_agents
     }
