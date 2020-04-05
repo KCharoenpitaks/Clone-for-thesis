@@ -161,11 +161,17 @@ class ParallelRunner:
                 break
 
             # Post step data we will insert for the current timestep
-            post_transition_data = {
-                "reward": [],
-                "terminated": [],
-                "intrinsic_reward": []
-            }
+            if (self.Mode =="2" or self.Mode =="5"):
+                post_transition_data = {
+                    "reward": [],
+                    "terminated": [],
+                    "intrinsic_reward": []
+                }
+            else: 
+                post_transition_data = {
+                    "reward": [],
+                    "terminated": [],
+                }
             # Data for the next step we will insert in order to select an action
             pre_transition_data = {
                 "state": [],
