@@ -101,7 +101,7 @@ class COMALearner:
         #print("advantages",advantages)
         ##################################################### individual Intrinsic Reward
         if self.Mode =="2":
-            int_adv = batch["intrinsic_reward"][:, :-1, :-1].reshape(-1)
+            int_adv = batch["intrinsic_reward"][:, :-1, :].reshape(-1)
             clip_ratio = 2
             for t in range(len(advantages)):
                 int_adv_clipped = th.clamp(int_adv[t],min = clip_ratio*-advantages[t], max =clip_ratio*advantages[t])
