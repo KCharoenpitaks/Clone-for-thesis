@@ -272,7 +272,7 @@ class ParallelRunner:
                                 print("22222222222222")
                             elif self.Mode =="5":
                                 print("55555555555555")
-                    if (self.Mode =="5"): # RND1
+                    elif (self.Mode =="5"): # RND1
                         reward_temp = 0
                         #print("range of data obs=",range(len(data["obs"])))
                         #print("data obs=", data["obs"])
