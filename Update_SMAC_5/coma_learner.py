@@ -100,10 +100,15 @@ class COMALearner:
         advantages = (q_taken - baseline).detach()
         #print("advantages",advantages)
         ##################################################### individual Intrinsic Reward
+        advantages = advantages.reshape(-1)
         if self.Mode =="2":
             int_adv = batch["intrinsic_reward"][:, :-1, :].reshape(-1)
+            #print("int_adv",int_adv)
             clip_ratio = 2
+            
             for t in range(len(advantages)):
+                #print("adv shape =",advantages[t])
+                #print("int_adv shape =",int_adv[t])
                 int_adv_clipped = th.clamp(int_adv[t],min = clip_ratio*-advantages[t], max =clip_ratio*advantages[t])
                 advantages[t] = advantages[t]+ int_adv_clipped
             
@@ -113,12 +118,21 @@ class COMALearner:
         ##################################################### Combined Intrinsic Reward
         #print("batchzzzz = ",batch["intrinsic_reward"][:, :-1, 3])
         elif self.Mode =="5":
-            #print("batch soze =", batch["intrinsic_reward"].shape)
+            #print("batch all =", th.cat((batch["intrinsic_reward"][:, :-1, :],batch["intrinsic_reward"][:, :-1, :],batch["intrinsic_reward"][:, :-1, :]),0).reshape(-1).shape)
             #print("batch soze =", batch["intrinsic_reward"][:, :-1, :].shape)
             #print("advantages  =", advantages.shape)
-            int_adv = th.cat((batch["intrinsic_reward"][:, :-1, :].reshape(-1),batch["intrinsic_reward"][:, :-1, :].reshape(-1),batch["intrinsic_reward"][:, :-1, :].reshape(-1)),0)
+            #temp = []
+            int_adv = batch["intrinsic_reward"][:, :-1, :]
+            for p in range(self.n_agents-1):
+                int_adv = th.cat((int_adv,batch["intrinsic_reward"][:, :-1, :]),0)
+            int_adv = int_adv.view(-1)
+
+                
+            #int_adv = th.cat((batch["intrinsic_reward"][:, :-1, :],batch["intrinsic_reward"][:, :-1, :],batch["intrinsic_reward"][:, :-1, :]),1).reshape(-1)
             clip_ratio = 2
             for t in range(len(advantages)):
+                #print("adv shape =",len(advantages))
+                #print("int_adv shape =",len(int_adv))
                 int_adv_clipped = th.clamp(int_adv[t],min = clip_ratio*-advantages[t], max =clip_ratio*advantages[t])
                 advantages[t] = advantages[t]+ int_adv_clipped
         else:
@@ -131,8 +145,9 @@ class COMALearner:
         #print("int_adv",int_adv.shape)
         #print("batch[intrinsic_reward]",batch["intrinsic_reward"].shape)
         #print("batch[reward]",batch["reward"].shape)
-        #print("log_pi_taken",log_pi_taken.shape)
-
+        print("log_pi_taken",log_pi_taken.shape)
+        print("advantages",advantages.shape)
+        
         coma_loss = - ((advantages * log_pi_taken) * mask).sum() / mask.sum()
         #print("self.agent_optimiser=",self.agent_optimiser)
         # Optimise agents
