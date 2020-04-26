@@ -250,7 +250,8 @@ class COMALearner:
                 
                 int_adv = int_adv.view(-1)
                 q_int = q_int.reshape(-1)
-                int_adv_norm = (int_adv - th.mean(int_adv))/th.sqrt(th.var(int_adv)+0.000001)
+                #int_adv_norm = (int_adv - th.mean(int_adv))/th.sqrt(th.var(int_adv)+0.000001)
+                int_adv_norm = (int_adv)/th.sqrt(th.var(int_adv)+0.000001)
                 adv_int_ = int_adv_norm.float().detach() - q_int.float()
                 adv_int.append(adv_int_)
                 #adv_int = th.stack(adv_int,adv_int_, dim=0)
@@ -265,7 +266,8 @@ class COMALearner:
                     int_adv = th.cat((int_adv,batch["intrinsic_reward"][:, t, :]),0)
                 int_adv = int_adv.view(-1)
                 q_int = q_int.reshape(-1)
-                int_adv_norm = (int_adv - th.mean(int_adv))/th.sqrt(th.var(int_adv)+0.000001)
+                #int_adv_norm = (int_adv - th.mean(int_adv))/th.sqrt(th.var(int_adv)+0.000001)
+                int_adv_norm = (int_adv)/th.sqrt(th.var(int_adv)+0.000001)
                 
                 #print("int_adv_norm =" ,int_adv_norm.shape)
                 #print("q_int =" ,q_int.shape)
